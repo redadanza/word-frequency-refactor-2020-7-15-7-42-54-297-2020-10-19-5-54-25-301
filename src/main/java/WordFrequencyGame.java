@@ -1,4 +1,6 @@
 import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 
 public class WordFrequencyGame {
@@ -18,6 +20,7 @@ public class WordFrequencyGame {
             } catch (Exception e) {
                 return "Calculate Error";
             }
+
         }
     }
 
@@ -32,31 +35,15 @@ public class WordFrequencyGame {
 
         List<String> words = Arrays.asList(inputStr.split(WHITE_SPACES));
         List<WordInfo> wordInfoList = new ArrayList<>();
-        for (String word : new HashSet<>(words)) {
-            int wordCount = Collections.frequency(words, word);
-            wordInfoList.add(new WordInfo(word, wordCount));
-        }
+        words.stream().collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
+                .forEach((word, count) -> wordInfoList.add(new WordInfo(word, Math.toIntExact(count))));
+
+
         return wordInfoList;
 
     }
     private boolean isSingleWord(String inputStr) {
         return inputStr.split(WHITE_SPACES).length==1;
     }
-
-
-//    private Map<String,List<WordInfo>> getListMap(List<WordInfo> inputList) {
-//        Map<String, List<WordInfo>> map = new HashMap<>();
-//        inputList.forEach(input -> {
-//            if (!map.containsKey(input.getValue())) {
-//                ArrayList arr = new ArrayList<>();
-//                arr.add(input);
-//                map.put(input.getValue(), arr);
-//            } else {
-//                map.get(input.getValue()).add(input);
-//            }
-//        });
-//        return map;
-//    }
-
 
 }
