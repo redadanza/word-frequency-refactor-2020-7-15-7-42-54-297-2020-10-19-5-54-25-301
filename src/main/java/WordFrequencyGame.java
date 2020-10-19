@@ -32,11 +32,11 @@ public class WordFrequencyGame {
 
         List<String> words = Arrays.asList(inputStr.split(WHITE_SPACES));
         List<WordInfo> wordInfoList = new ArrayList<>();
-        new HashSet<>(words).forEach(word -> {
+        for (String word : new HashSet<>(words)) {
             int wordCount = Collections.frequency(words, word);
             wordInfoList.add(new WordInfo(word, wordCount));
-        });
-          return wordInfoList;
+        }
+        return wordInfoList;
 
     }
     private boolean isSingleWord(String inputStr) {
@@ -44,24 +44,19 @@ public class WordFrequencyGame {
     }
 
 
-    private Map<String,List<WordInfo>> getListMap(List<WordInfo> inputList) {
-        Map<String, List<WordInfo>> map = new HashMap<>();
-        for (WordInfo input :  inputList){
-//       map.computeIfAbsent(input.getValue(), k -> new ArrayList<>()).add(input);
-            if (!map.containsKey(input.getValue())){
-                ArrayList arr = new ArrayList<>();
-                arr.add(input);
-                map.put(input.getValue(), arr);
-            }
-
-            else {
-                map.get(input.getValue()).add(input);
-            }
-        }
-
-
-        return map;
-    }
+//    private Map<String,List<WordInfo>> getListMap(List<WordInfo> inputList) {
+//        Map<String, List<WordInfo>> map = new HashMap<>();
+//        inputList.forEach(input -> {
+//            if (!map.containsKey(input.getValue())) {
+//                ArrayList arr = new ArrayList<>();
+//                arr.add(input);
+//                map.put(input.getValue(), arr);
+//            } else {
+//                map.get(input.getValue()).add(input);
+//            }
+//        });
+//        return map;
+//    }
 
 
 }
