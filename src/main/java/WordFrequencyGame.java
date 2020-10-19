@@ -1,7 +1,6 @@
 import java.util.*;
 
 
-
 public class WordFrequencyGame {
 
     public static final String WHITE_SPACES = "\\s+";
@@ -9,19 +8,12 @@ public class WordFrequencyGame {
     public String getResult(String inputStr){
 
 
-        if (inputStr.split(WHITE_SPACES).length==1) {
+        if (isSingleWord(inputStr)) {
             return inputStr + " 1";
         } else {
             try {
-                //split the input string with 1 to n pieces of spaces
-                String[] words = inputStr.split(WHITE_SPACES);
 
-                List<WordInfo> wordInfoList = new ArrayList<>();
-                for (String word : words) {
-                    WordInfo input = new WordInfo(word, 1);
-                    wordInfoList.add(input);
-                }
-
+                List<WordInfo> wordInfoList = getDividedWordInfo(inputStr);
                 //get the map for the next step of sizing the same word
                 Map<String, List<WordInfo>> map =getListMap(wordInfoList);
 
@@ -40,12 +32,29 @@ public class WordFrequencyGame {
                     joiner.add(s);
                 }
                 return joiner.toString();
+
             } catch (Exception e) {
 
 
                 return "Calculate Error";
             }
         }
+    }
+
+    private  List<WordInfo> getDividedWordInfo(String inputStr){
+       String[] words = inputStr.split(WHITE_SPACES);
+
+       List<WordInfo> wordInfoList = new ArrayList<>();
+       for (String word : words) {
+          WordInfo input = new WordInfo(word, 1);
+          wordInfoList.add(input);
+      }
+
+          return wordInfoList;
+
+    }
+    private boolean isSingleWord(String inputStr) {
+        return inputStr.split(WHITE_SPACES).length==1;
     }
 
 
