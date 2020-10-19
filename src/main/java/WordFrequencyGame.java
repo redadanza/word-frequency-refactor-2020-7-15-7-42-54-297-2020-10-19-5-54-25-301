@@ -8,24 +8,16 @@ public class WordFrequencyGame {
     public static final String WHITE_SPACES = "\\s+";
 
     public String getResult(String inputStr){
-
-
-        if (isSingleWord(inputStr)) {
-            return inputStr + " 1";
-        } else {
-            try {
-                return getFinalOutput(getWordInfoFrequency(inputStr));
-            } catch (Exception e) {
-                return "Calculate Error";
-            }
-        }
+        return isSingleWord(inputStr) ? inputStr + " 1"
+                : getFinalOutput(getWordInfoFrequency(inputStr));
     }
 
     private String getFinalOutput(List<WordInfo> wordInfoList){
         sortWordInfoList(wordInfoList);
-        
+
         StringJoiner joiner = new StringJoiner("\n");
         wordInfoList.stream().map(wordInfo -> wordInfo.getValue() + " " + wordInfo.getWordCount()).forEach(joiner::add);
+
        return  joiner.toString();
     }
 
@@ -39,8 +31,8 @@ public class WordFrequencyGame {
         List<WordInfo> wordInfoList = new ArrayList<>();
         words.stream().collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
                 .forEach((word, count) -> wordInfoList.add(new WordInfo(word, Math.toIntExact(count))));
-        return wordInfoList;
 
+        return wordInfoList;
     }
     private boolean isSingleWord(String inputStr) {
         return inputStr.split(WHITE_SPACES).length==1;
