@@ -22,12 +22,17 @@ public class WordFrequencyGame {
     }
 
     private String getFinalOutput(List<WordInfo> wordInfoList){
-        wordInfoList.sort((currentWord, nextWord) -> nextWord.getWordCount() - currentWord.getWordCount());
-
+        sortWordInfoList(wordInfoList);
+        
         StringJoiner joiner = new StringJoiner("\n");
         wordInfoList.stream().map(wordInfo -> wordInfo.getValue() + " " + wordInfo.getWordCount()).forEach(joiner::add);
        return  joiner.toString();
     }
+
+    private void sortWordInfoList(List<WordInfo> wordInfoList) {
+        wordInfoList.sort((currentWord, nextWord) -> nextWord.getWordCount() - currentWord.getWordCount());
+    }
+
     private  List<WordInfo> getWordInfoFrequency(String inputStr){
 
         List<String> words = Arrays.asList(inputStr.split(WHITE_SPACES));
