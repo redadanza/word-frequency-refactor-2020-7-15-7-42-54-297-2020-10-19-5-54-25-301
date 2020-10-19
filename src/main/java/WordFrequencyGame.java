@@ -14,13 +14,10 @@ public class WordFrequencyGame {
             return inputStr + " 1";
         } else {
             try {
-                List<WordInfo> wordInfoList = getWordInfoFrequency(inputStr);
-                return getFinalOutput(wordInfoList);
-
+                return getFinalOutput(getWordInfoFrequency(inputStr));
             } catch (Exception e) {
                 return "Calculate Error";
             }
-
         }
     }
 
@@ -37,8 +34,6 @@ public class WordFrequencyGame {
         List<WordInfo> wordInfoList = new ArrayList<>();
         words.stream().collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
                 .forEach((word, count) -> wordInfoList.add(new WordInfo(word, Math.toIntExact(count))));
-
-
         return wordInfoList;
 
     }
